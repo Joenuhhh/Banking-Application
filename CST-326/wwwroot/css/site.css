@@ -20,3 +20,53 @@ html {
 body {
   margin-bottom: 60px;
 }
+:root {
+    --primary-color: #4059ad;
+    --secondary-color: #6b9ac4;
+    --accent-color: #97d8c4;
+    --neutral-color: #eff2f1;
+    --warning-color: #f4b942;
+}
+/* Apply custom primary color to buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Apply custom primary color to links */
+a {
+    color: var(--primary-color);
+}
+
+/* Apply custom primary color to navigation bars */
+.navbar {
+    background-color: var(--primary-color);
+}
+
+/* Apply custom secondary color to some other elements */
+.some-element {
+    background-color: var(--secondary-color);
+}
+.custom-card {
+    background-color: var(--neutral-color);
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .custom-card .card-header {
+        background-color: var(--primary-color);
+        color: white;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .custom-card .card-body {
+        background-color: white;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    .custom-card .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }

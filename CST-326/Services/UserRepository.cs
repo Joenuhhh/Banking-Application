@@ -6,7 +6,7 @@ namespace CST_326.DAO
 {
     public class UserRepository : IUserRepository<LoginViewModel>
     {
-        UserDAO userDAO = new UserDAO();
+        public UserDAO userDAO = new UserDAO();
 
         public User EditUser(LoginViewModel user)
         {
@@ -18,5 +18,6 @@ namespace CST_326.DAO
       
             return userDAO.FindUser(user);
         }
+
     }
 }

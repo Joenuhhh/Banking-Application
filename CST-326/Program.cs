@@ -2,6 +2,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders(); // Clear any existing logging providers
+    logging.AddConsole();     // Add console logger
+    logging.SetMinimumLevel(LogLevel.Warning); // Set minimum log level
+});
 
 var app = builder.Build();
 
@@ -17,7 +23,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+ 
 app.UseAuthorization();
 
 app.MapControllerRoute(

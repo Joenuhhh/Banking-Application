@@ -1,4 +1,4 @@
-﻿@model CST_326.Models.User
+﻿@model CST_326.Models.ViewModel.DashboardViewModel
 
 @{
     ViewData["Title"] = "Dashboard";
@@ -6,58 +6,64 @@
 
 <h1>Dashboard</h1>
 
-<div>
-    <h4>Welcome</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-    </dl>
+<!-- Card for displaying user information -->
+<div class="card mb-4" style="border-radius: 15px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+    <div class="card-body">
+        <h4 class="card-title">Welcome @Model.User.UserName,</h4>
+        <hr />
+        <!-- Display user information -->
+        <dl class="row">
+            <dt class="col-sm-4">User ID</dt>
+            <dd class="col-sm-8">@Model.User.UserId</dd>
+            <dt class="col-sm-4">First Name</dt>
+            <dd class="col-sm-8">@Model.User.FirstName</dd>
+            <dt class="col-sm-4">Last Name</dt>
+            <dd class="col-sm-8">@Model.User.LastName</dd>
+            <dt class="col-sm-4">Username</dt>
+            <dd class="col-sm-8">@Model.User.UserName</dd>
+            <dt class="col-sm-4">Phone Number</dt>
+            <dd class="col-sm-8">@Model.User.PhoneNumber</dd>
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">@Model.User.Email</dd>
+        </dl>
+        <button type="button" class="btn btn-primary" onclick="addAccount()">Add Account</button>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
-<div>
-    <form id="deleteForm" method="post" asp-action="Delete">
-        <input type="hidden" asp-for="UserId" />
-        <button type="button" onclick="confirmDelete()" class="btn btn-danger">Delete Account</button>
-    </form>
-</div>
+
+<!-- Card for displaying user's accounts -->
+@if (Model.Accounts != null && Model.Accounts.Count > 0)
+{
+    <div class="card" style="border-radius: 15px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+        <div class="card-body">
+            <h4 class="card-title">User's Accounts</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Account Number</th>
+                        <th>Account Type</th>
+                        <th>Balance</th>
+                        <th>Creation Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var account in Model.Accounts)
+                    {
+                        <tr>
+                            <td>@account.AccountNumber</td>
+                            <td>@account.AccountType</td>
+                            <td>@account.Balance</td>
+                            <td>@account.CreatedAt.ToString("yyyy-MM-dd")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <p>No accounts found for the user.</p>
+}
 
 <script>
     function confirmDelete() {

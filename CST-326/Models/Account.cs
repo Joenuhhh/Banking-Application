@@ -4,12 +4,12 @@
     {
         public int AccountId { get; set; }
         public int UserId { get; set; } // Foreign key to User
-        public string AccountNumber { get; set; }
+        public long AccountNumber { get; set; }
         public string AccountType { get; set; }
         public decimal Balance { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public Account(int userId, string accountNumber, string accountType, decimal balance)
+        public Account(int userId, long accountNumber, string accountType, decimal balance)
         {
             UserId = userId;
             AccountNumber = accountNumber;
@@ -17,8 +17,16 @@
             Balance = balance;
             CreatedAt = DateTime.Now;
         }
+        public Account()
+        {
+            // Constructor without parameters
+            AccountNumber = GenerateRandomAccountNumber();
+            AccountType = "Checking";
+            Balance = GenerateRandomBalance();
+            CreatedAt = DateTime.Now;
+        }
 
-        // Methods to handle deposit, withdrawal, etc., could be added here
+        // Methods to handle deposit, withdrawal, etc., could be added here 
         public void Deposit(decimal amount)
         {
             if (amount <= 0)
@@ -40,6 +48,19 @@
                 return true;
             }
             return false; // Insufficient funds
+        }
+        private long GenerateRandomAccountNumber()
+        {
+            // Generate a random 10-digit number for the account number
+            Random random = new Random();
+            return random.Next(100000000, 999999999);
+        }
+
+        private decimal GenerateRandomBalance()
+        {
+            // Generate a random balance between 1 and 500,000
+            Random random = new Random();
+            return (decimal)random.NextDouble() * 500000;
         }
     }
 }

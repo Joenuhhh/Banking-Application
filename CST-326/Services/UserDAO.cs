@@ -9,9 +9,11 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace CST_326.Services
 {
+ 
     public class UserDAO 
     {
-        string myConnectionString = "Server=jonahmysqlserver.mysql.database.azure.com;Database=capstone;User Id=joenuh;Password=Jonah124;SslMode=Preferred;";
+
+        string myConnectionString = "Server=jonahmysqlserver.mysql.database.azure.com;Database=capstone;UserId=joenuh;Password=Jonah124;SslMode=Preferred;";
         public User FindUser(LoginViewModel user)
         {
 
@@ -23,23 +25,26 @@ namespace CST_326.Services
 
                 command.Parameters.AddWithValue("@USERNAME", user.UserName).Value = user.UserName;
                 command.Parameters.AddWithValue("@PASSWORD", user.Password).Value = user.Password;
-
+                // Add debugging to check the actual command text and parameters
+                Console.WriteLine("1. Executing SQL: " + command.CommandText);
                 try
                 {
                     connection.Open();
+                    Console.WriteLine("2. Executing SQL: " + command.CommandText);
                     MySqlDataReader reader = command.ExecuteReader();
-
+                    Console.WriteLine("3. Executing SQL: " + command.CommandText);
                     while (reader.Read())
                     {
-
+                        Console.WriteLine("4. Executing SQL: " + command.CommandText);
                         User a = new User()
                         {
                             UserId = reader.GetInt32(0),
-                            UserName = reader.GetString(1),
-                            Password = reader.GetString(2),
-                            FirstName = reader.GetString(3),
-                            LastName = reader.GetString(4),
+                            FirstName = reader.GetString(1),
+                            LastName = reader.GetString(2),
+                            UserName = reader.GetString(3),
+                            Email = reader.GetString(4),
                             PhoneNumber = reader.GetString(5),
+                            Password = reader.GetString(6)
                         };
                         return a;
                     }
@@ -47,6 +52,8 @@ namespace CST_326.Services
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    Console.WriteLine("_________________________________________________________");
+                    Console.WriteLine(ex.StackTrace);
                 };
             }
             return null;
@@ -77,32 +84,134 @@ namespace CST_326.Services
                 }
             }
         }
-
-        // register a new user 
-        public void RegisterUser(RegistrationViewModel newUser)
+        public string GetUserByUsername(string username)
         {
-            string sqlStatement = "INSERT INTO users (Username, Password, FirstName, LastName, PhoneNumber) VALUES (@USERNAME, @PASSWORD, @FIRSTNAME, @LASTNAME, @PHONENUMBER)";
+            string result = null;
+
+            string sqlStatement = "SELECT Username FROM users WHERE Username = @Username";
 
             using (MySqlConnection connection = new MySqlConnection(myConnectionString))
             {
                 MySqlCommand command = new MySqlCommand(sqlStatement, connection);
-
-                command.Parameters.AddWithValue("@USERNAME", newUser.UserName);
-                command.Parameters.AddWithValue("@PASSWORD", newUser.Password);
-                command.Parameters.AddWithValue("@FIRSTNAME", newUser.FirstName);
-                command.Parameters.AddWithValue("@LASTNAME", newUser.LastName);
-                command.Parameters.AddWithValue("@PHONENUMBER", newUser.PhoneNumber);
+                command.Parameters.AddWithValue("@Username", username);
 
                 try
                 {
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    object obj = command.ExecuteScalar();
+                    if (obj != null)
+                    {
+                        result = obj.ToString();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Error retrieving username: " + ex.Message);
+                }
+            }
+
+            return result;
+        }
+        public string GetPasswordByUsername(string username)
+        {
+            string result = null;
+
+            string sqlStatement = "SELECT Password FROM users WHERE Username = @Username";
+
+            using (MySqlConnection connection = new MySqlConnection(myConnectionString))
+            {
+                MySqlCommand command = new MySqlCommand(sqlStatement, connection);
+                command.Parameters.AddWithValue("@Username", username);
+
+                try
+                {
+                    connection.Open();
+                    object obj = command.ExecuteScalar();
+                    if (obj != null)
+                    {
+                        result = obj.ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error retrieving password: " + ex.Message);
+                }
+            }
+
+            return result;
+        }
+
+        // register a new user 
+        public void RegisterUser(RegistrationViewModel newUser)
+            {
+            Console.WriteLine("testestest");
+                string sqlStatement = "INSERT INTO users (Username, Email, Password, FirstName, LastName, Phone) VALUES (@USERNAME, @EMAIL, @PASSWORD, @FIRSTNAME, @LASTNAME, @PHONENUMBER)";
+
+                using (MySqlConnection connection = new MySqlConnection(myConnectionString))
+                {
+                    MySqlCommand command = new MySqlCommand(sqlStatement, connection);
+
+                    command.Parameters.AddWithValue("@USERNAME", newUser.UserName);
+                    command.Parameters.AddWithValue("@EMAIL", newUser.Email);
+                    command.Parameters.AddWithValue("@PASSWORD", newUser.Password);
+                    command.Parameters.AddWithValue("@FIRSTNAME", newUser.FirstName);
+                    command.Parameters.AddWithValue("@LASTNAME", newUser.LastName);
+                    command.Parameters.AddWithValue("@PHONENUMBER", newUser.PhoneNumber);
+
+                // Print the SQL statement to the console
+                Console.WriteLine("SQL Statement: " + sqlStatement);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("User registration successful.");
+                }
+                catch (MySqlException ex2)
+                {
+                    Console.WriteLine("||||||||||||||||||||" + ex2.Message);
+                    Console.WriteLine("Error occurred during user registration: " + ex2.Message);
+                    Console.WriteLine("Error code: " + ex2.ErrorCode); // This will print the MySQL error code
+                    Console.WriteLine("Error number: " + ex2.Number); // This will print the MySQL error number
+
+
                 };
             }
+        }
+        public List<Account> GetAccountsByUserId(int userId)
+        {
+            List<Account> accounts = new List<Account>();
+            string sqlStatement = "SELECT * FROM accounts2 WHERE UserId = @UserId";
+
+            using (MySqlConnection connection = new MySqlConnection(myConnectionString))
+            {
+                MySqlCommand command = new MySqlCommand(sqlStatement, connection);
+                command.Parameters.AddWithValue("@UserId", userId);
+
+                try
+                {
+                    connection.Open();
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Account account = new Account()
+                        {
+                            AccountId = reader.GetInt32(0),
+                            UserId = reader.GetInt32(1),
+                            AccountNumber = reader.GetInt64(2),
+                            AccountType = reader.GetString(3),
+                            Balance = reader.GetDecimal(4),
+                            CreatedAt = reader.GetDateTime(5)
+                        };
+                        accounts.Add(account);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error retrieving accounts: " + ex.Message);
+                }
+            }
+
+            return accounts;
         }
 
     }

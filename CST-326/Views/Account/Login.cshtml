@@ -3,47 +3,47 @@
 @{
     ViewData["Title"] = "Login";
 }
-<div class="container col-xl-10 col-xxl-8 px-4 py-5">
-    <div class="row align-items-center g-lg-5 py-5">
-        <div class="col-lg-6 text-center text-lg-start">
-            <h1 class="display-4 fw-bold lh-1 mb-3">Vertically centered hero sign-up form</h1>
-            <p class="col-lg-10 fs-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum mattis pellentesque id nibh tortor id aliquet lectus proin.
-            </p>
-        </div>
-        <div class="col-md-10 mx-auto col-lg-6">
-            @using (Html.BeginForm("ProcessLogin", "Account", FormMethod.Post))
-            {
-                <form class="p-4 p-md-5 border rounded-3 bg-light">
-                    <div class="form-floating mb-3">
-                        <input asp-for=UserName class="form-control" id="floatingInput" placeholder="JohnDoe">
-                        @Html.LabelFor(m=>m.UserName)
-                        <div style="color:red">
-                            @Html.ValidationMessageFor(m => m.UserName)
+
+
+
+<div class="login-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                @using (Html.BeginForm("ProcessLogin", "Account", FormMethod.Post))
+                {
+                    <div class="card custom-card mt-5">
+                        <div class="card-header">
+                            Login
                         </div>
-                        
-                    </div>
+                        <div class="card-body">
+                            <form class="p-4 p-md-5 border rounded-3 bg-light">
+                                <div class="form-floating mb-3">
+                                    <input asp-for="UserName" class="form-control" id="floatingInput" placeholder="JohnDoe">
+                                    @Html.LabelFor(m => m.UserName)
+                                    <div style="color:red">
+                                        @Html.ValidationMessageFor(m => m.UserName)
+                                    </div>
+                                </div>
 
-                    <div class="form-floating mb-3">
-                        <input asp-for=Password type="password" class="form-control" id="floatingPassword"  placeholder="Password">
-                       @Html.LabelFor(m =>m.Password)
-                       <div style="color:red">
-                            @Html.ValidationMessageFor(m => m.Password)
-                       </div>
-                      
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                    @Html.LabelFor(m => m.Password)
+                                    <div style="color:red">
+                                        @Html.ValidationMessageFor(m => m.Password)
+                                    </div>
+                                </div>
+                                <div class="checkbox mb-3">
+                                    <label>
+                                        <input type="checkbox" value="remember-me"> Remember me
+                                    </label>
+                                </div>
+                                <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Remember me
-                        </label>
-                    </div>
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-                    <hr class="my-4">
-                </form>
-
-            }
-
+                }
+            </div>
         </div>
     </div>
 </div>
-

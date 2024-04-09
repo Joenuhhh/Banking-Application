@@ -8,6 +8,11 @@ namespace CST_326.Models.ViewModel
         [Display(Name = "Username")]
         public string UserName { get; set; }
 
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -23,7 +28,6 @@ namespace CST_326.Models.ViewModel
 
         [Required(ErrorMessage = "Phone number is required")]
         [Display(Name = "Phone Number")]
-        [RegularExpression(@"^\d{3}-\d{3}-\d{4}$", ErrorMessage = "Please enter a valid phone number (e.g., 123-456-7890)")]
         public string PhoneNumber { get; set; }
     }
 }
