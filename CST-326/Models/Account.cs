@@ -25,6 +25,15 @@
             Balance = GenerateRandomBalance();
             CreatedAt = DateTime.Now;
         }
+        public Account(int userId, string accountType)
+        {
+            // Constructor without parameters
+            UserId = userId;
+            AccountNumber = GenerateRandomAccountNumber();
+            AccountType = accountType;
+            Balance = GenerateRandomBalance();
+            CreatedAt = DateTime.Now;
+        }
 
         // Methods to handle deposit, withdrawal, etc., could be added here 
         public void Deposit(decimal amount)

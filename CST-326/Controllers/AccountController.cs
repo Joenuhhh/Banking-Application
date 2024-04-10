@@ -11,6 +11,7 @@ namespace CST_326.Controllers
     public class AccountController : Controller
     {
         private UserRepository userRepository;
+        bool loggedIn = false;
   
         public AccountController()
         {
@@ -49,7 +50,7 @@ namespace CST_326.Controllers
                 User = user,
                 Accounts = accounts
             };
-
+            loggedIn = true;
             // Pass the ViewModel to the Dashboard view
             return View("Dashboard", viewModel);
         }
@@ -82,6 +83,84 @@ namespace CST_326.Controllers
             return View("Register");
         }
 
+        public IActionResult AddAccount(int userId)
+        {
+            // Retrieve the current user
+            var user = userRepository.userDAO.GetUserById(userId);
+            if (user == null)
+            {
+                // Handle the case where the user is not found
+                return NotFound();
+            }
+
+            // Create a new account object with default values
+            var newAccount = new Account();
+
+            // Pass the user object and the new account object to the view
+            var viewModel = new AddAccountViewModel
+            {
+                User = user,
+                Account = newAccount
+            };
+
+            // Render the view with the populated data
+            return View("AddAccount", viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult ProcessAddAccount(int userId)
+        {
+            try
+            {
+                // Retrieve the current user
+                var user = userRepository.userDAO.GetUserById(userId);
+               
+                if (user == null)
+                {
+                    // Handle the case where the user is not found
+                    return NotFound();
+                }
+
+                var newAccount = new Account(user.UserId, "Checking");
+
+                // Pass the user object and the new account object to the view
+             
+
+                // Save the new account to the database by calling the AddAccount method
+                userRepository.userDAO.AddAccount(newAccount);
+                var accounts = userRepository.userDAO.GetAccountsByUserId(userId);
+                var viewModel = new DashboardViewModel
+                {
+                    User = user,
+                    Accounts = accounts
+                };
+
+                // After processing, redirect back to the user's dashboard
+                return View("Dashboard", viewModel);
+
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as necessary
+                Console.WriteLine("An error occurred while processing the add account request: " + ex.Message);
+                return RedirectToAction("Error", "Home"); // Redirect to an error page
+            }
+        }
+
+
+
+        public IActionResult DeleteAccount(int accountId)
+        {
+            try
+            {
+                userRepository.userDAO.DeleteAccount(accountId);
+                return Json(new { success = true, message = "Account deleted successfully." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error deleting account: " + ex.Message });
+            }
+        }
 
 
     }

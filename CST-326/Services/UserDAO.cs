@@ -14,6 +14,44 @@ namespace CST_326.Services
     {
 
         string myConnectionString = "Server=jonahmysqlserver.mysql.database.azure.com;Database=capstone;UserId=joenuh;Password=Jonah124;SslMode=Preferred;";
+
+        public User GetUserById(int userId)
+        {
+            User user = null;
+
+            string sqlStatement = "SELECT * FROM users WHERE UserId = @UserId";
+
+            using (MySqlConnection connection = new MySqlConnection(myConnectionString))
+            {
+                MySqlCommand command = new MySqlCommand(sqlStatement, connection);
+                command.Parameters.AddWithValue("@UserId", userId);
+
+                try
+                {
+                    connection.Open();
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        user = new User
+                        {
+                            UserId = reader.GetInt32(0),
+                            FirstName = reader.GetString(1),
+                            LastName = reader.GetString(2),
+                            UserName = reader.GetString(3),
+                            Email = reader.GetString(4),
+                            PhoneNumber = reader.GetString(5),
+                            Password = reader.GetString(6)
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error retrieving user: " + ex.Message);
+                }
+            }
+
+            return user;
+        }
         public User FindUser(LoginViewModel user)
         {
 
@@ -212,6 +250,69 @@ namespace CST_326.Services
             }
 
             return accounts;
+        }
+        public void AddAccount(Account account)
+        {
+            string insertQuery = "INSERT INTO accounts2 (UserId, AccountNumber, AccountType, Balance, CreationDate) " +
+                                 "VALUES (@UserId, @AccountNumber, @AccountType, @Balance, @CreatedAt)";
+
+            using (MySqlConnection connection = new MySqlConnection(myConnectionString))
+            {
+                MySqlCommand command = new MySqlCommand(insertQuery, connection);
+                command.Parameters.AddWithValue("@UserId", account.UserId);
+                command.Parameters.AddWithValue("@AccountNumber", account.AccountNumber);
+                command.Parameters.AddWithValue("@AccountType", account.AccountType);
+                command.Parameters.AddWithValue("@Balance", account.Balance);
+                command.Parameters.AddWithValue("@CreatedAt", account.CreatedAt);
+
+                try
+                {
+                    connection.Open();
+                    Console.WriteLine("Final SQL query: " + insertQuery);
+
+                    // Log parameters and their values
+                    foreach (MySqlParameter parameter in command.Parameters)
+                    {
+                        Console.WriteLine($"{parameter.ParameterName}: {parameter.Value}");
+                    }
+
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Account added successfully.");
+                }
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine("Error adding account: " + ex.Message);
+                }
+            }
+        }
+
+        public void DeleteAccount(int accountId)
+        {
+            string deleteQuery = "DELETE FROM accounts2 WHERE AccountId = @AccountId";
+
+            using (MySqlConnection connection = new MySqlConnection(myConnectionString))
+            {
+                MySqlCommand command = new MySqlCommand(deleteQuery, connection);
+                command.Parameters.AddWithValue("@AccountId", accountId);
+
+                try
+                {
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine("Account deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No account found with ID: " + accountId);
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine("Error deleting account: " + ex.Message);
+                }
+            }
         }
 
     }
