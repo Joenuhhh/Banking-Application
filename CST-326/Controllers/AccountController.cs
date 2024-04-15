@@ -12,11 +12,11 @@ namespace CST_326.Controllers
     {
         private UserRepository userRepository;
         bool loggedIn = false;
-  
+
         public AccountController()
         {
             userRepository = new UserRepository();
-          
+
 
         }
 
@@ -108,23 +108,20 @@ namespace CST_326.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProcessAddAccount(int userId)
+        public IActionResult ProcessAddAccount(int userId, decimal initialBalance)
         {
             try
             {
                 // Retrieve the current user
                 var user = userRepository.userDAO.GetUserById(userId);
-               
+
                 if (user == null)
                 {
                     // Handle the case where the user is not found
                     return NotFound();
                 }
 
-                var newAccount = new Account(user.UserId, "Checking");
-
-                // Pass the user object and the new account object to the view
-             
+                var newAccount = new Account(user.UserId, "Checking", initialBalance);
 
                 // Save the new account to the database by calling the AddAccount method
                 userRepository.userDAO.AddAccount(newAccount);
@@ -146,6 +143,7 @@ namespace CST_326.Controllers
                 return RedirectToAction("Error", "Home"); // Redirect to an error page
             }
         }
+
 
 
 

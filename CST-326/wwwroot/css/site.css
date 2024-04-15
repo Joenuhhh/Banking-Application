@@ -1,72 +1,69 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* General Styles */
 body {
-  margin-bottom: 60px;
-}
-:root {
-    --primary-color: #4059ad;
-    --secondary-color: #6b9ac4;
-    --accent-color: #97d8c4;
-    --neutral-color: #eff2f1;
-    --warning-color: #f4b942;
-}
-/* Apply custom primary color to buttons */
-.btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e8f0f7; /* Light blue background */
 }
 
-/* Apply custom primary color to links */
+h1, h2, h3, h4, h5, h6 {
+    color: #333; /* Dark text color */
+}
+
 a {
-    color: var(--primary-color);
+    color: #2196f3; /* Light blue link color */
+    text-decoration: none; /* Remove underline from links */
 }
 
-/* Apply custom primary color to navigation bars */
-.navbar {
-    background-color: var(--primary-color);
-}
-
-/* Apply custom secondary color to some other elements */
-.some-element {
-    background-color: var(--secondary-color);
-}
-.custom-card {
-    background-color: var(--neutral-color);
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-    .custom-card .card-header {
-        background-color: var(--primary-color);
-        color: white;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
+    a:hover {
+        text-decoration: underline; /* Underline links on hover */
     }
 
-    .custom-card .card-body {
-        background-color: white;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-    }
+/* Card Styles */
+.card {
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
 
-    .custom-card .btn-primary {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
-    }
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* User Information Card Styles */
+.row {
+    margin-bottom: 10px;
+}
+
+dt {
+    color: #999; /* Lighter text color for labels */
+}
+
+.btn-danger {
+    background-color: #f44336; /* Red button color */
+    border-color: #f44336;
+    color: white;
+}
+
+/* Table Styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    text-align: left;
+    background-color: #f2f2f2; /* Light gray table header */
+}
