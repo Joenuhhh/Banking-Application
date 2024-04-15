@@ -9,11 +9,10 @@
 <!-- Card for displaying user information -->
 <div class="card mb-4" style="border-radius: 15px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
     <div class="card-body">
-        <h4 class="card-title">Welcome @Model.User.UserName,</h4>
+        <h4 class="card-title">Welcome @Model.User.FirstName @Model.User.LastName,</h4> <!-- Updated greeting message -->
         <hr />
         <!-- Display user information -->
         <dl class="row">
-            <dt class="col-sm-4">User ID</dt>
             <dd class="col-sm-8">@Model.User.UserId</dd>
             <dt class="col-sm-4">First Name</dt>
             <dd class="col-sm-8">@Model.User.FirstName</dd>
