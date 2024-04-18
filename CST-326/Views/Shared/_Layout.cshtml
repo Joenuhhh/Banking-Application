@@ -12,6 +12,7 @@
             background-color: #007bff; /* Navbar background color */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Shadow style */
             font-family: 'Roboto', sans-serif; /* Set font family */
+            text-decoration: none; /* Remove underline */
         }
 
         .navbar-brand {
@@ -21,13 +22,13 @@
 
             .navbar-brand .capitalize {
                 font-size: 24px; /* Set font size for capitalized letters */
-                font-weight: bold; /* Make capitalized letters bold */
+          /* Make capitalized letters bold */
                 color: #ffffff; /* Set color to white */
                 text-decoration: none; /* Remove underline */
             }
 
         .navbar-nav .nav-link {
-            transition: font-size 0.3s; /* Smooth transition for font size */
+            transition: font-size .8s; /* Smooth transition for font size */
         }
 
             .navbar-nav .nav-link:hover {
@@ -50,7 +51,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><span class="capitalize">D</span>addies <span class="capitalize">I</span>ternational <span class="capitalize">B</span>anking <span class="capitalize">S</span>ervices</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="text-decoration: none;"><span class="capitalize">D</span>addies <span class="capitalize">I</span>nternational <span class="capitalize">B</span>anking <span class="capitalize">S</span>ervices</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -76,8 +77,9 @@
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">About</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="about">About</a>
                         </li>
+
                     </ul>
                 </div>
             </div>

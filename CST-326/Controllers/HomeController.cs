@@ -1,5 +1,6 @@
 using CST_326.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace CST_326.Controllers
@@ -19,6 +20,11 @@ namespace CST_326.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult About()
         {
             return View();
         }
