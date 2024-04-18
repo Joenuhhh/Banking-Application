@@ -3,42 +3,80 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - D.I.B.S.</title>
+    <title>@ViewData["Title"] - D.addies I.nternational B.anking S.ervices</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CST_326.styles.css" asp-append-version="true" />
+    <style>
+        .navbar {
+            background-color: #007bff; /* Navbar background color */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Shadow style */
+            font-family: 'Roboto', sans-serif; /* Set font family */
+        }
+
+        .navbar-brand {
+            font-size: 18px; /* Set font size */
+            text-decoration: none; /* Remove underline */
+        }
+
+            .navbar-brand .capitalize {
+                font-size: 24px; /* Set font size for capitalized letters */
+                font-weight: bold; /* Make capitalized letters bold */
+                color: #ffffff; /* Set color to white */
+                text-decoration: none; /* Remove underline */
+            }
+
+        .navbar-nav .nav-link {
+            transition: font-size 0.3s; /* Smooth transition for font size */
+        }
+
+            .navbar-nav .nav-link:hover {
+                font-size: calc(18px * 1.05); /* Increase font size by 5% on hover */
+                text-decoration: none; /* Remove underline on hover */
+            }
+
+        .navbar-nav .nav-item:last-child .nav-link,
+        .navbar-nav .nav-item:nth-last-child(2) .nav-link {
+            color: #ffffff; /* Set color to white for links on the right-hand side */
+        }
+
+        .navbar-nav .nav-item:nth-last-child(3) .nav-link {
+            color: #ffffff; /* Set color to white for the "About" link */
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">D.I.B.S.</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><span class="capitalize">D</span>addies <span class="capitalize">I</span>ternational <span class="capitalize">B</span>anking <span class="capitalize">S</span>ervices</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         @if (ViewBag.User != null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="TransferFunds">Transfer Funds</a>
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="TransferFunds">Transfer Funds</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Login</a>
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Index">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">About</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">About</a>
                         </li>
                     </ul>
                 </div>
