@@ -1,8 +1,55 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .custom-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+    .card-body {
+        background-color: rgba(255, 255, 255, 0.9); /* White background with 90% opacity */
+    }
+</style>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="row">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card custom-shadow">
+                    <img src="./Images/buffbackground.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Quote of the Day</h5>
+                        <p class="card-text">"Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful." - Albert Schweitzer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 custom-shadow">
+                <div class="card-header">
+                    <h2 class="text-center">Welcome to Daddies International Banking Service</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-center">We provide secure and convenient banking solutions tailored to your needs.</p>
+                    <p class="card-text text-center">Start managing your finances with ease.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 custom-shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-center">About Us</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec odio ipsum. Nulla fringilla nunc vitae leo suscipit accumsan.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 custom-shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Our Mission</h5>
+                    <p class="card-text">Our mission is to help our clients achieve maximum gains on their investments while providing excellent customer service and maintaining the highest level of integrity.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
