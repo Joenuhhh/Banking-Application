@@ -7,32 +7,35 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CST_326.styles.css" asp-append-version="true" />
+    <link rel="icon" href="./Images/AppIcon.png" type="image/png">
     <style>
         .navbar {
             background-color: #007bff; /* Navbar background color */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Shadow style */
-            font-family: 'Roboto', sans-serif; /* Set font family */
+           
             text-decoration: none; /* Remove underline */
         }
 
         .navbar-brand {
-            font-size: 18px; /* Set font size */
+            font-size: 24px; /* Set font size */
+            font-weight: bold; /* Set font weight to bold */
             text-decoration: none; /* Remove underline */
         }
-
+       
             .navbar-brand .capitalize {
-                font-size: 24px; /* Set font size for capitalized letters */
-          /* Make capitalized letters bold */
+                font-size: 32px; /* Set font size for capitalized letters */
+                 /* Set font weight to bold */
                 color: #ffffff; /* Set color to white */
-                text-decoration: none; /* Remove underline */
+                
             }
 
         .navbar-nav .nav-link {
-            transition: font-size .8s; /* Smooth transition for font size */
+            transition: font-size .8s;
+            font-weight: bold;/* Smooth transition for font size */
         }
 
             .navbar-nav .nav-link:hover {
-                font-size: calc(18px * 1.05); /* Increase font size by 5% on hover */
+                font-size: 105%; /* Increase font size by 5% on hover */
                 text-decoration: none; /* Remove underline on hover */
             }
 
@@ -44,6 +47,16 @@
         .navbar-nav .nav-item:nth-last-child(3) .nav-link {
             color: #ffffff; /* Set color to white for the "About" link */
         }
+
+        .navbar-brand .img {
+            height: 70px; /* Set height to 45 pixels */
+            width: auto; /* Automatically adjust width */
+        }
+
+        .navbar-brand .img:hover {
+            height: 105%; /* Set height to 45 pixels */
+            width: auto; /* Automatically adjust width */
+        }
     </style>
 </head>
 <body>
@@ -51,6 +64,8 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
+                <img src="~/Images/AppIcon3.png" alt="Site Icon" style="height: 50px; width: 50px; margin-right: 20px; margin-top: -5px;">
+
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="text-decoration: none;"><span class="capitalize">D</span>addies <span class="capitalize">I</span>nternational <span class="capitalize">B</span>anking <span class="capitalize">S</span>ervices</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

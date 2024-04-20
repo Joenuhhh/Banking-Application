@@ -159,6 +159,42 @@ namespace CST_326.Controllers
                 return Json(new { success = false, message = "Error deleting account: " + ex.Message });
             }
         }
+        [HttpPost]
+        public IActionResult TransferFunds(int fromAccountId, int toAccountId, decimal amount)
+        {
+            try
+            {
+                // Retrieve the accounts from the repository
+                Account fromAccount = userRepository.userDAO.GetAccountById(fromAccountId);
+                Account toAccount = userRepository.userDAO.GetAccountById(toAccountId);
+
+                // Check if accounts exist and if there are sufficient funds
+                if (fromAccount != null && toAccount != null && fromAccount.Balance >= amount)
+                {
+                    // Deduct amount from 'from' account
+                    fromAccount.Balance -= amount;
+
+                    // Add amount to 'to' account
+                    toAccount.Balance += amount;
+
+                    // Update accounts in the repository
+                    userRepository.userDAO.UpdateAccount(fromAccount);
+                    userRepository.userDAO.UpdateAccount(toAccount);
+
+                    return Json(new { success = true, message = "Funds transferred successfully." });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Transfer failed. Please check your account balances and try again." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "An error occurred while transferring funds: " + ex.Message });
+            }
+        }
+
+
 
 
     }

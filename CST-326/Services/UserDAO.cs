@@ -314,6 +314,69 @@ namespace CST_326.Services
                 }
             }
         }
+        public Account GetAccountById(int accountId)
+        {
+            string selectQuery = "SELECT * FROM accounts2 WHERE AccountId = @AccountId";
+
+            using (MySqlConnection connection = new MySqlConnection(myConnectionString))
+            {
+                MySqlCommand command = new MySqlCommand(selectQuery, connection);
+                command.Parameters.AddWithValue("@AccountId", accountId);
+
+                try
+                {
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new Account
+                            {
+                                AccountId = Convert.ToInt32(reader["AccountId"]),
+                                UserId = Convert.ToInt32(reader["UserId"]),
+                                AccountNumber = Convert.ToInt32(reader["AccountNumber"]),
+                                AccountType = Convert.ToString(reader["AccountType"]),
+                                Balance = Convert.ToDecimal(reader["Balance"]),
+                                CreatedAt = Convert.ToDateTime(reader["CreationDate"])
+                            };
+                        }
+                        else
+                        {
+                            return null; // Account not found
+                        }
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine("Error retrieving account: " + ex.Message);
+                    return null;
+                }
+            }
+        }
+
+        public void UpdateAccount(Account account)
+        {
+            string updateQuery = "UPDATE accounts2 SET Balance = @Balance WHERE AccountId = @AccountId";
+
+            using (MySqlConnection connection = new MySqlConnection(myConnectionString))
+            {
+                MySqlCommand command = new MySqlCommand(updateQuery, connection);
+                command.Parameters.AddWithValue("@Balance", account.Balance);
+                command.Parameters.AddWithValue("@AccountId", account.AccountId);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Account updated successfully.");
+                }
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine("Error updating account: " + ex.Message);
+                }
+            }
+        }
+
 
     }
 }
