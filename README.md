@@ -11,6 +11,8 @@
 
 <h2>Introduction:</h2>
 <p>This README provides an overview of the Banking Application, an ASP.NET MVC-based project hosted on Azure. The application showcases CRUD (Create, Read, Update, Delete) operations in an MVC (Model-View-Controller) setting and demonstrates the use of the Agile methodology in its development process.</p>
+<img src="https://github.com/Joenuhhh/CST-326/assets/79020295/2fc06c58-c097-4f3f-b721-11f4999d722d" alt="image" style="width: 150%;">
+
 
 <h2>Features:</h2>
 <ol>
