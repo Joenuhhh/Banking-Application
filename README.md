@@ -42,9 +42,6 @@
 <h2>License:</h2>
 <p>The Banking Application is open-source software released under the <a href="https://opensource.org/licenses/MIT">MIT License</a>. You are free to use, modify, and distribute the application for any purpose, subject to the terms of the license.</p>
 
-<h2>Contact:</h2>
-<p>For inquiries or support regarding the Banking Application, please contact [Your Contact Information].</p>
-
 <h2>Acknowledgements:</h2>
 <p>We would like to acknowledge the contributions of all individuals and organizations that have contributed to the development and deployment of the Banking Application. Your efforts are greatly appreciated.</p>
 
